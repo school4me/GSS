@@ -39,18 +39,6 @@ p<0.05 is smaller than 0.05 we would reject the null,   and accept the alternati
 
 
 
-
-```{r}
-chisqtestGC(~VOTE16+VOTE12, data=mydata4)
-votetab=xtabs(~VOTE16+VOTE12, data=mydata4)
-fisher.test(votetab)
-
-```
-
-
-
-
-
 This data is from the 2018 General Social Survey. The first blocks of R-code has selected down a subset of the data to just 15 variables. It has further removed unwanted factor levels in much of the data. Examine that code to see what it is doing. First explain what you make out of comparing how people voted in 2012 with 2016.
 
 
@@ -75,7 +63,7 @@ we use a barchart to shlw the voting trends between 2012 and 2016
 ```{r}
 barchartGC(~VOTE16+VOTE12, data=mydata4, type = "percent", xlab='vote in 2016') 
 ```
-
+The barchart shows more people voted 2012 and less people voted in 2016.
 
 
 
@@ -138,8 +126,10 @@ we use a barchart to show beliefs in the bigbang theory and the postlife theory.
 
 
 ```{r}
-barchartGC(~BIGBANG+POSTLIFE, data=mydata3, type='percent', xlab='BELIEVE IN POSTLIFE', main='BELIEVE IN BIGBANG')
+barchartGC(~BIGBANG+POSTLIFE, data=mydata3, type="percent", xlab="do you BELIEVE in BIGBANG", ylab="do you believe POSTLIFE")
 ```
+
+more people believe in the BIGBANG than PROLIFE.
 
 #### Numerical Descriptive Results
 
