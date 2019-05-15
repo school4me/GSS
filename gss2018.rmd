@@ -1,6 +1,6 @@
 ---
 title: "General Social Survey"
-author: "Your Name"
+author: "anita paul"
 date: "Year 2019"
 output: 
   html_document:
@@ -27,20 +27,29 @@ mydata3 <- filter(mydata2,BIGBANG=="True" | BIGBANG=="False",EVOLVED=="True"|EVO
 mydata4 <- filter(mydata3,CAPPUN=="FAVOR"|CAPPUN=="OPPOSE",VOTE12=="Voted"|VOTE12=="Did not vote",VOTE16=="Voted"|VOTE16=="Did not vote") %>% droplevels()
 levels(mydata4$VOTE12)[1] <- "voted12"
 levels(mydata4$VOTE12)[2] <- "no in 12"
-
 ```
 
-
-```{r}
-barchartGC(~VOTE16+VOTE12, data=mydata4, type = "percent") 
-chisqtestGC(~VOTE16+VOTE12, data=mydata4)
-votetab=xtabs(~VOTE16+VOTE12, data=mydata4)
-fisher.test(votetab)
-```
 
 # Introduction Question 1
 
-<!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?!-->
+<!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?!--> 
+
+$H_0:$ voting in 2016 and 2012 are unrelated. If  
+p<0.05 is smaller than 0.05 we would reject the null,   and accept the alternative  
+
+
+
+
+```{r}
+chisqtestGC(~VOTE16+VOTE12, data=mydata4)
+votetab=xtabs(~VOTE16+VOTE12, data=mydata4)
+fisher.test(votetab)
+
+```
+
+
+
+
 
 This data is from the 2018 General Social Survey. The first blocks of R-code has selected down a subset of the data to just 15 variables. It has further removed unwanted factor levels in much of the data. Examine that code to see what it is doing. First explain what you make out of comparing how people voted in 2012 with 2016.
 
@@ -49,82 +58,174 @@ This data is from the 2018 General Social Survey. The first blocks of R-code has
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
 
+we use catagorical variables, and a chi-squared  test to test the hypothesis that voting in  2016is / not independent in voting in  2012 
+
 ##Results
 
 <!--Divide this section into two sub-sections:  One for your descriptive  results and one for your inferential results.!-->
 
 ### Descriptive Results
+we use a barchart to shlw the voting trends between 2012 and 2016
+
 
 #### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+```{r}
+barchartGC(~VOTE16+VOTE12, data=mydata4, type = "percent", xlab='vote in 2016') 
+```
+
+
+
+
 #### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+numerical summary is a cross tabulation
+
+```{r}
+votetab=xtabs(~VOTE16+VOTE12, data=mydata4)
+fisher.test(votetab)
+
+```
 
 ### Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+```{r}
+chisqtestGC(~VOTE16+VOTE12, data=mydata4)
+votetab=xtabs(~VOTE16+VOTE12, data=mydata4)
+fisher.test(votetab)
+```
+
+in conclusion the hypothesis voting in 2016 is related to voting in 2012. we therefore because the p value is zero  less than 0.05 we reject the null and accept the alternative. 
 
 # Introduction Question 2
 
 <!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?!-->
 
+we are searching whether the 'bigbang' theory  and the 'postlife' theory are related. 
+
+```{r}
+barchartGC(~BIGBANG+POSTLIFE, data=mydata4, type = "percent,xlab='views on 'BIGBANG' theory") 
+chisqtestGC(~BIGBANG+POSTLIFE, data=mydata4)
+fisher.test(votetab)
+```
+
+
 Now answer Is belief in the bigbang theory (BIGBANG) independent of belief in the afterlife (POSTLIFE)
+
+the 'BIGBANG" theory and the "POSYLIFE" theory are unrelated     
+p<a is smaller than 0.05 so we reject the null, and accept the alternative    
 
 ## Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
+
+we use catagorical variables, and a chi-squared  test to test the hypothesis do those that believe in the BIGBANG  theory believe in the POSTLIFE theory  
 
 ##Results
 
 <!--Divide this section into two sub-sections:  One for your descriptive  results and one for your inferential results.!-->
 
 ### Descriptive Results
+we use a barchart to show beliefs in the bigbang theory and the postlife theory.  
 
 #### Graphical Descriptive Results
 
-<!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+<!--Graphical results here.  Make sure to show your code. Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+
+
+```{r}
+barchartGC(~BIGBANG+POSTLIFE, data=mydata3, type='percent', xlab='BELIEVE IN POSTLIFE', main='BELIEVE IN BIGBANG')
+```
 
 #### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+ 
+```{r}
+
+BIGBANGtab=xtabs(~BIGBANG+POSTLIFE, data=mydata3)
+fisher.test(votetab)
+```
+
+
 
 ### Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+
+```{r}
+chisqtestGC(~BIGBANG+POSTLIFE, data=mydata4)
+BIGBANGtab=xtabs(~BIGBANG+POSTLIFE, data=mydata4)
+fisher.test(votetab)
+```
+in conclusion the hypothesis 'BIGBANG" theory" is  related to "POSTLIFE" theory. we have evidence that the p value   is smaller than 0.05, therfore we reject the null and accept the  alternative.   
 
 # Introduction Question 3
 
 <!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?!-->
 
-This time compare the opinion on death penalty (CAPPUN) with opinion on courts (COURTS).
+we compare the opinion on death penalty (CAPPUN) with opinion on courts (COURTS). We are seeking to find if there is a relationship in views on death penalty (CAPPUN) or opinion on courts (COURTS) and voting liklihood in 2012 and 2016. 
+
 
 ## Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
 
+use catagoricla variables, and a chi-squared test to test
+the hypothesis that likelihood of voting in 2016 and 2012  is / is not independent opinion on death penalty or  opinion on courts. 
 ##Results
 
 <!--Divide this section into two sub-sections:  One for your descriptive  results and one for your inferential results.!-->
 
 ### Descriptive Results
+we use a barchart to show the percentage of the  likelihood of voting in 2012 and 2016 with opinion on  death penalty or courts among surveryed voters 
 
 #### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+```{r}
+barchartGC(~CAPPUN+COURTS, data=mydata4, type = "percent",xlab= 'VIEW ON CAPPUN', main= 'VIEW ON COURTS')
+```
+
 #### Numerical Descriptive Results
+
+numerical summary is a cross tabulation:
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+```{r}
+xtabs(~CAPPUN+COURTS, data=mydata4)
+```
+
 ### Inferential Results
+
+```{r}
+chisqtestGC(~CAPPUN+COURTS, data=mydata4)
+```
+
+
+```{r}
+votetab=xtabs(~CAPPUN+COURTS, data=mydata4)
+fisher.test(votetab)
+```
+
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
 
+$H_0$:ther is no relationship between the view on the court and the view on capital punishment  
+$H_A$: there is a relationship between the view on the court and the view on capital punishment  
+ 
+
+the p-value =4.35e-10 which is smaller than .05 so we reject the null hypothesis because the response and explanitory values are catagorical the bar plot and chisquared test for independence.  
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
 
+in conclusion the hypothesis 'death penalty or courts' in 2012 is  related to "death penalty or courts' theory. we have evidence that the p value   is smaller than 0.05, therfore we reject the null and accept the  alternative.
+all three examples seemed to have some related correlation in their variables. The 2012 voters mostly voted in 2016 and the non voters of 2012 did not vote in 2016. The non belief in the post life seemed directly related to belief in the big bang. There was a minimal group who believed in neither. And capital punishment seemed directly correlated with those who felt the courts were too lenient.
